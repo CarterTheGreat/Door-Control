@@ -26,20 +26,31 @@ void loop() {
 
 
   Serial.println("Start");
-  raiseMotor();
-  delay(2000);
-  lowerMotor();
-  delay(5000);
-
+  
   openDoor();
-  delay(2000);
+  delay(10000);
 
   closeDoor();
-  delay(2000);
+  delay(10000);
   Serial.println("End");
 
 }
 
+
+
+void openDoor(){
+  Serial.println("Open");
+  lowerMotor();
+  openMotor();
+  raiseMotor();
+}
+
+void closeDoor(){
+  Serial.println("Close");
+  lowerMotor();
+  closeMotor();
+  raiseMotor();
+}
 
 void lowerMotor(){
 
@@ -62,13 +73,13 @@ void raiseMotor(){
   }
 }
 
-void openDoor(){
+void openMotor(){
   uint8_t i;
-  Serial.println("Open");
+  Serial.println("Motor Open");
   
   motor->run(FORWARD);
   motor->setSpeed(i); 
-  for (i=0; i<255; i++) {
+  for (i=0; i<155; i++) {
     motor->setSpeed(i);  
     delay(10);
   }
@@ -79,12 +90,12 @@ void openDoor(){
   
 }
 
-void closeDoor(){
+void closeMotor(){
   uint8_t i;
-  Serial.println("Close");
+  Serial.println("Motor Close");
 
   motor->run(BACKWARD);
-  for (i=0; i<255; i++) {
+  for (i=0; i<155; i++) {
     motor->setSpeed(i);  
     delay(10);
   }
